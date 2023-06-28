@@ -4,30 +4,35 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-  - main
+  - main # runs when a change is made to the main branch
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: ubuntu-latest # runs on a Microsoft-hosted Linux machine
 
-steps:
-  - task: NodeTool@0
-    inputs:
-      versionSpec: '10.x'
-    displayName: 'Install Node.js'
+stages:
+  - stage:
+    displayName: 'Useless Stage'
+    jobs:
+      - job:
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '10.x'
+            displayName: 'Install Node.js'
 
-  - task: Npm@1
-    inputs:
-      command: 'ci'
-    displayName: 'Install Packages'
+          - task: Npm@1
+            inputs:
+              command: 'ci'
+            displayName: 'Install Packages'
 
-  - task: Npm@1
-    inputs:
-      command: 'custom'
-      customCommand: 'run lint'
-    displayName: 'Lint'
+          - task: Npm@1
+            inputs:
+              command: 'custom'
+              customCommand: 'run lint'
+            displayName: 'Lint'
 
-  - task: Npm@1
-    inputs:
-      command: 'custom'
-      customCommand: 'run test'
-    displayName: 'Test'
+          - task: Npm@1
+            inputs:
+              command: 'custom'
+              customCommand: 'run test'
+            displayName: 'Test'
