@@ -11,7 +11,7 @@ pool:
 
 stages:
   - stage:
-    displayName: 'Useless Stage'
+    displayName: 'Useless Stage New'
     jobs:
       - job:
         steps:
