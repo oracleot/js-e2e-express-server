@@ -12,37 +12,29 @@ strategy:
       imageName: 'ubuntu-latest'
     mac:
       imageName: 'macOS-latest'
-    windows:
-      imageName: 'windows-latest'
-  maxParallel: 2
 
 pool:
   vmImage: $(imageName)
 
-stages:
-  - stage:
-    displayName: 'Useless Stage New'
-    jobs:
-      - job:
-        steps:
-          - task: NodeTool@0
-            inputs:
-              versionSpec: '10.x'
-            displayName: 'Install Node.js'
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '10.x'
+    displayName: 'Install Node.js'
 
-          - task: Npm@1
-            inputs:
-              command: 'ci'
-            displayName: 'Install Packages'
+  - task: Npm@1
+    inputs:
+      command: 'ci'
+    displayName: 'Install Packages'
 
-          - task: Npm@1
-            inputs:
-              command: 'custom'
-              customCommand: 'run lint'
-            displayName: 'Lint'
+  - task: Npm@1
+    inputs:
+      command: 'custom'
+      customCommand: 'run lint'
+    displayName: 'Lint'
 
-          - task: Npm@1
-            inputs:
-              command: 'custom'
-              customCommand: 'run test'
-            displayName: 'Test'
+  - task: Npm@1
+    inputs:
+      command: 'custom'
+      customCommand: 'run test'
+    displayName: 'Test'
